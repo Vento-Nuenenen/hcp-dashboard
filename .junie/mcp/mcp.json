@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/home/caspar/.asdf/installs/php/8.5.9/bin/php",
+            "args": [
+                "/home/caspar/projekte/app/hcp-dashboard/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
