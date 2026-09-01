@@ -16,7 +16,8 @@ class ServerController extends Controller
     public function show(Server $server)
     {
         $server->load(['domains.subdomains', 'services']);
-        return view('servers.show', compact('server'));
+        $allServers = Server::all();
+        return view('servers.show', compact('server', 'allServers'));
     }
 
     public function store(Request $request)
@@ -33,5 +34,20 @@ class ServerController extends Controller
         ]);
 
         return redirect()->route('servers.index');
+    }
+
+    public function installTool(Request $request, Server $server)
+    {
+        $request->validate([
+            'tool' => 'required|string',
+        ]);
+
+        $tools = $server->tools_to_install ?? [];
+        if (!in_array($request->tool, $tools)) {
+            $tools[] = $request->tool;
+            $server->update(['tools_to_install' => $tools]);
+        }
+
+        return back()->with('success', 'Tool wurde zur Installationswarteschlange hinzugefügt.');
     }
 }

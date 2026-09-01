@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subdomain extends Model
 {
-    protected $fillable = ['domain_id', 'subdomain_name'];
+    protected $fillable = ['domain_id', 'subdomain_name', 'assigned_tools'];
+
+    protected $casts = [
+        'assigned_tools' => 'array',
+    ];
 
     public function domain()
     {
